@@ -27,3 +27,31 @@ export function getParam(param) {
   const urlParams = new URLSearchParams(queryString);
   return urlParams.get(param);
 }
+
+ function renderWithTemplate(template, parentElement, data, callback)
+{
+  parentElement.innerHTML = template;
+  if(callback)
+  {
+    callback(data);
+  }
+    
+}
+
+async function  loadTemplate(path) {
+  const response = await fetch(path);
+  if (!response.ok) {
+    throw new Error(`Failed to load template: ${response.status}`);
+  }
+  const template = await response.text();
+  return template;
+}
+export async function loadHeaderFooter()
+{
+  const headerTemplate = await loadTemplate("../partials/header.html");
+  const footerTemplate = await loadTemplate("../partials/footer.html");
+  const headerElement = qs("#header");
+  const footerElement = qs("#footer");
+  renderWithTemplate(headerTemplate, headerElement);
+  renderWithTemplate(footerTemplate, footerElement);
+}
