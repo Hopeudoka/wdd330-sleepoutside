@@ -9,15 +9,13 @@ function renderCartContents() {
 
   const cartFooter = document.querySelector(".cart-footer");
   if (cartItems.length > 0) {
-
     const total = cartItems.reduce(
-      (sum, item) => sum + (item.FinalPrice * (item.quantity || 1)),
-      0
+      (sum, item) => sum + item.FinalPrice * (item.quantity || 1),
+      0,
     );
     cartFooter.classList.remove("hide");
-    cartFooter.querySelector(
-      ".cart-total"
-    ).textContent = `Total: $${total.toFixed(2)}`;
+    cartFooter.querySelector(".cart-total").textContent =
+      `Total: $${total.toFixed(2)}`;
   } else {
     cartFooter.classList.add("hide");
   }
@@ -27,10 +25,10 @@ function cartItemTemplate(item) {
   return `
     <li class="cart-card divider">
         <a href="#" class="cart-card__image">
-            <img src="${item.Image}" alt="${item.Name}">
+            <img src="${item.Images.PrimarySmall}" alt="${item.NameWithoutBrand}">
         </a>
         <a href="#">
-            <h2 class="card__name">${item.Name}</h2>
+            <h2 class="card__name">${item.NameWithoutBrand}</h2>
         </a>
         <p class="cart-card__color">${item.Colors?.[0]?.ColorName || "No color available"}</p>
         <p class="cart-card__quantity">qty: ${item.quantity || 1}</p>
