@@ -28,7 +28,7 @@ export function getParam(param) {
   return urlParams.get(param);
 }
 
-export function renderWithTemplate(template, parentElement, data, callback) {
+function renderWithTemplate(template, parentElement, data, callback) {
   parentElement.innerHTML = template;
   if (callback) {
     callback(data);
@@ -50,30 +50,4 @@ export async function loadHeaderFooter() {
   const footerElement = qs("#footer");
   renderWithTemplate(headerTemplate, headerElement);
   renderWithTemplate(footerTemplate, footerElement);
-  updateCartCount();
-}
-function updateCartCount() {
-  const cartItems = getLocalStorage("so-cart") || [];
-  const count = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
-  const cartCountElem = document.querySelector(".cart-count");
-  if (count > 0) {
-    cartCountElem.style.display = "block";
-    cartCountElem.textContent = count;
-  }
-}
-export function loadCategories(categories, parentElement) {
-  const categoriesTemplate = `
-    <div class="categories-flex">
-      ${categories
-        .map(
-          (category) => `
-          <a href="${category.url}">
-            <img src="${category.icon}" alt="${category.category}" />
-            <span>${category.category}</span>
-          </a>`,
-        )
-        .join("")}
-    </div>
-  `;
-  renderWithTemplate(categoriesTemplate, parentElement);
 }
