@@ -28,7 +28,7 @@ export function getParam(param) {
   return urlParams.get(param);
 }
 
-function renderWithTemplate(template, parentElement, data, callback) {
+export function renderWithTemplate(template, parentElement, data, callback) {
   parentElement.innerHTML = template;
   if (callback) {
     callback(data);
@@ -50,4 +50,22 @@ export async function loadHeaderFooter() {
   const footerElement = qs("#footer");
   renderWithTemplate(headerTemplate, headerElement);
   renderWithTemplate(footerTemplate, footerElement);
+}
+
+export function loadCategories(categories, parentElement) {
+  const categoriesTemplate = `
+    <div class="categories-flex">
+      ${categories
+        .map(
+          (category) => `
+          <a href="${category.url}">
+            <img src="${category.icon}" alt="${category.category}" />
+            <span>${category.category}</span>
+          </a>
+        `,
+        )
+        .join("")}
+    </div>
+  `;
+  renderWithTemplate(categoriesTemplate, parentElement);
 }
