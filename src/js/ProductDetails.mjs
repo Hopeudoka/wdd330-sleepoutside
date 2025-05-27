@@ -1,21 +1,21 @@
 import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 
 export default class ProductDetails {
-  constructor(productId, dataSource) {
-    this.productId = productId;
-    this.product = {};
+  constructor(id, dataSource, element) {
+    this.id = id;
     this.dataSource = dataSource;
+    this.element = element;
   }
 
   async init() {
-    this.product = await this.dataSource.findProductById(this.productId);
+    this.product = await this.dataSource.findProductById(this.id);
 
     if (!this.product) {
       console.error("Product not found!");
       return;
     }
 
-    this.renderProductDetails();
+    this.render(this.product);
 
     document
       .getElementById("addToCart")
@@ -39,17 +39,17 @@ export default class ProductDetails {
     alert(`${this.product.Name} added to cart!`);
   }
 
-  renderProductDetails() {
-    document.title = `Sleep Outside | ${this.product.Name}`;
-    document.querySelector("#product-title").textContent = this.product.Name;
-    document.querySelector("#product-brand").textContent =
-      this.product.Brand?.Name || "Unknown Brand";
-    document.querySelector("#product-image").src = this.product.Image;
-    document.querySelector("#product-price").textContent =
-      `$${this.product.FinalPrice.toFixed(2)}`;
-    document.querySelector("#product-color").textContent =
-      this.product.Colors?.[0]?.ColorName || "No color available";
-    document.querySelector("#product-description").innerHTML =
-      this.product.DescriptionHtmlSimple;
+  render(product) {
+    this.element.innerHTML = `<section class="product-detail"> <h3>${product.Brand.Name}</h3>
+     <h2 class="divider">${product.NameWithoutBrand}</h2>
+     <img src="${product.Images.PrimaryLarge}" alt="${product.NameWithoutBrand}">
+     <p class="product-card__price">$${product.FinalPrice}</p>
+     <p class="product__color">${product.Colors[0].ColorName}</p>
+     <p class="product__description">
+     ${product.DescriptionHtmlSimple}
+     </p>
+     <div class="product-detail__add">
+       <button id="addToCart" data-id="${product.Id}">Add to Cart</button>
+     </div></section>`;
   }
 }

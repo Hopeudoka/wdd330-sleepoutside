@@ -1,0 +1,22 @@
+[
+  {
+    "category": "Tents",
+    "url": "/product_listing/index.html?category=tents",
+    "icon": "/images/icons/category-tents.svg"
+  },
+  {
+    "category": "Backpacks",
+    "url": "/product_listing/index.html?category=backpacks",
+    "icon": "/images/icons/category-backpacks.svg"
+  },
+  {
+    "category": "Sleeping Bags",
+    "url": "/product_listing/index.html?category=sleeping-bags",
+    "icon": "/images/icons/category-sleepingbags.svg"
+  },
+  {
+    "category": "Hammocks",
+    "url": "/product_listing/index.html?category=hammocks",
+    "icon": "/images/icons/category-hammocks.svg"
+  }
+]
