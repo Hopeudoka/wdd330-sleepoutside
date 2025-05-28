@@ -50,6 +50,7 @@ export async function loadHeaderFooter() {
   const footerElement = qs("#footer");
   renderWithTemplate(headerTemplate, headerElement);
   renderWithTemplate(footerTemplate, footerElement);
+  updateCartCount();
 }
 
 export function loadCategories(categories, parentElement) {
@@ -68,4 +69,15 @@ export function loadCategories(categories, parentElement) {
     </div>
   `;
   renderWithTemplate(categoriesTemplate, parentElement);
+}
+function updateCartCount()
+{
+  const htmls = getLocalStorage("so-cart") || [];
+  const cartCount = htmls.reduce((count, item) => count + (item.quantity || 1), 0);
+  const cartElement = qs(".cart-count")
+  if(cartCount > 0)
+  {
+    cartElement.style.display = "block";
+    cartElement.textContent = cartCount;
+  }
 }
