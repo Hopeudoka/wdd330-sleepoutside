@@ -123,10 +123,11 @@ button {
   text-align: center;
   display: inline-block;
 }
+
 /*Adding style tothe cart count as a superscript badge*/
 .cart-count {
   position: absolute;
-  top: .9rem;
+  top: 0.9rem;
   right: 12px;
   background: rgb(255, 0, 51);
   color: white;
@@ -257,7 +258,6 @@ button {
   grid-column: 3;
 }
 
-
 /* Styling checkout pages */
 
 .checkout {
@@ -310,6 +310,8 @@ label {
 
 input[type="text"],
 input[type="month"] {
+  width: 100%;
+  box-sizing: border-box;
   padding: 0.6em 0.9em;
   border: 1.5px solid #bfc9d9;
   border-radius: 5px;
@@ -324,24 +326,28 @@ input[type="month"]:focus {
 }
 
 .checkout-btn {
-  margin-top: 1.2rem;
-  padding: 0.8em 2em;
-  background: linear-gradient(90deg, #2a7ae2 60%, #21c8f6 100%);
+  width: 100%;
+  background: #27ae60;
   color: #fff;
   border: none;
-  border-radius: 7px;
-  font-size: 1.08rem;
-  font-weight: bold;
-  letter-spacing: 1px;
+  border-radius: 5px;
+  padding: 0.7em 0;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.08);
-  transition: background 0.2s, transform 0.1s;
+  transition:
+    background 0.18s,
+    transform 0.12s;
+  box-shadow: 0 1px 4px rgba(44, 62, 80, 0.08);
+  margin-top: 0.7rem;
+  text-decoration: none;
+  display: block;
 }
 
 .checkout-btn:hover,
 .checkout-btn:focus {
-  background: linear-gradient(90deg, #21c8f6 0%, #2a7ae2 100%);
-  transform: translateY(-2px) scale(1.03);
+  background: #219150;
+  transform: translateY(-1px) scale(1.02);
 }
 
 .order-summary {
@@ -376,17 +382,6 @@ input[type="month"]:focus {
 .order-summary li strong {
   color: #000000;
 }
-.checkout-btn {
-  display: inline-block;
-  margin-top: 1rem;
-  padding: 0.5em 1.5em;
-  background: #2a7ae2;
-  color: #fff;
-  border-radius: 4px;
-  text-decoration: none;
-  font-weight: bold;
-}
-
 
 @media (min-width: 700px) {
   .checkout {
@@ -394,9 +389,11 @@ input[type="month"]:focus {
     padding: 2.5rem 2rem;
     max-width: 900px;
   }
+
   #checkout-form {
     flex: 2 1 350px;
   }
+
   .order-summary {
     flex: 1 1 250px;
     margin-top: 0;
@@ -404,7 +401,6 @@ input[type="month"]:focus {
     align-self: flex-start;
   }
 }
-
 
 @media screen and (min-width: 500px) {
   body {
@@ -445,7 +441,7 @@ input[type="month"]:focus {
   justify-content: center;
 }
 
-.categories-flex a img{
+.categories-flex a img {
   margin: 0.5em;
   padding: 0.5em;
   border: 1px solid var(--light-grey);
@@ -456,6 +452,52 @@ footer {
   font-size: var(--small-font);
   padding: 1em;
 }
+
+.cart-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  padding: 0.5rem 1rem;
+  margin-top: 1.5rem;
+  gap: 1.5rem;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cart-total {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #222;
+  margin: 0;
+}
+
+.cart-checkout-btn {
+  background: linear-gradient(90deg, #ff9800 0%, #f44336 100%);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.6em 1.5em;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition:
+    background 0.18s,
+    transform 0.12s;
+  box-shadow: 0 1px 4px rgba(44, 62, 80, 0.08);
+  text-decoration: none;
+  display: inline-block;
+}
+
+.cart-checkout-btn:hover,
+.cart-checkout-btn:focus {
+  background: linear-gradient(90deg, #f44336 0%, #ff9800 100%);
+  transform: translateY(-1px) scale(1.03);
+}
+
 .cart-footer.hide {
   display: none;
 }
