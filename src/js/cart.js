@@ -1,4 +1,8 @@
-import { getLocalStorage, loadHeaderFooter } from "./utils.mjs";
+import {
+  getLocalStorage,
+  loadHeaderFooter,
+  setLocalStorage,
+} from "./utils.mjs";
 
 loadHeaderFooter();
 
@@ -19,11 +23,12 @@ function renderCartContents() {
   } else {
     cartFooter.classList.add("hide");
   }
+  addQuantityListeners();
 }
 
 function cartItemTemplate(item) {
   return `
-    <li class="cart-card divider">
+    <li class="cart-card divider" data-id="${item.Id}">
         <a href="#" class="cart-card__image">
             <img src="${item.Images.PrimarySmall}" alt="${item.NameWithoutBrand}">
         </a>
@@ -31,9 +36,30 @@ function cartItemTemplate(item) {
             <h2 class="card__name">${item.NameWithoutBrand}</h2>
         </a>
         <p class="cart-card__color">${item.Colors?.[0]?.ColorName || "No color available"}</p>
-        <p class="cart-card__quantity">qty: ${item.quantity || 1}</p>
+        <label class="cart-card__quantity">
+          qty: 
+          <input type="number" min="1" value="${item.quantity || 1}" class="cart-qty-input" data-id="${item.Id}">
+        </label>
         <p class="cart-card__price">$${(item.FinalPrice * (item.quantity || 1)).toFixed(2)}</p>
     </li>`;
+}
+
+function addQuantityListeners() {
+  document.querySelectorAll(".cart-qty-input").forEach((input) => {
+    input.addEventListener("change", (e) => {
+      const newQty = parseInt(e.target.value, 10);
+      const id = e.target.dataset.id;
+      if (newQty < 1) return;
+
+      let cartItems = getLocalStorage("so-cart") || [];
+      const item = cartItems.find((i) => i.Id === id);
+      if (item) {
+        item.quantity = newQty;
+        setLocalStorage("so-cart", cartItems);
+        renderCartContents();
+      }
+    });
+  });
 }
 
 renderCartContents();

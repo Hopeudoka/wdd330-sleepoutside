@@ -6,7 +6,7 @@ const dataSource = new ExternalServices("tents");
 const productList = new ProductList("tents", dataSource, "product-list");
 productList.init();
 loadHeaderFooter();
-// Load categories from JSON file and render them
+
 fetch("/json/categories.json")
   .then((response) => response.json())
   .then((categories) => {
